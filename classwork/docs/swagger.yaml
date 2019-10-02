@@ -1,0 +1,57 @@
+basePath: /api/v1
+definitions:
+  models.ServErr:
+    properties:
+      code:
+        type: integer
+      desc:
+        type: string
+      err:
+        type: string
+      internal:
+        type: object
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: jkulvichi@gmail.com
+    name: Yuri Kulagin
+    url: https://t.me/jkulvich
+  description: Server for api & documentation testing
+  license:
+    name: MIT
+  title: GeekBrains HW7 Server
+  version: "1.0"
+paths:
+  /docs/swagger.json:
+    get:
+      description: Returns swagger.json docs
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - system
+  /echo:
+    post:
+      description: Returns echo
+      parameters:
+      - description: Any text
+        in: body
+        name: data
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ServErr'
+      tags:
+      - health-check
+swagger: "2.0"

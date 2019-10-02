@@ -1,0 +1,88 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Server for api \u0026 documentation testing",
+        "title": "GeekBrains HW7 Server",
+        "contact": {
+            "name": "Yuri Kulagin",
+            "url": "https://t.me/jkulvich",
+            "email": "jkulvichi@gmail.com"
+        },
+        "license": {
+            "name": "MIT"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/docs/swagger.json": {
+            "get": {
+                "description": "Returns swagger.json docs",
+                "tags": [
+                    "system"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/echo": {
+            "post": {
+                "description": "Returns echo",
+                "tags": [
+                    "health-check"
+                ],
+                "parameters": [
+                    {
+                        "description": "Any text",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/models.ServErr"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.ServErr": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer"
+                },
+                "desc": {
+                    "type": "string"
+                },
+                "err": {
+                    "type": "string"
+                },
+                "internal": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}
