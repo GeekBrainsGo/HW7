@@ -1,0 +1,140 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Этот блог создан для учебных целей. Использует MySQL для хранения блогов.",
+        "title": "Мой первый простой блог",
+        "contact": {
+            "email": "vbaykin@mail.ru"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "2.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/api/v1",
+    "paths": {
+        "/": {
+            "get": {
+                "description": "получить список блогов",
+                "summary": "Список блогов"
+            }
+        },
+        "/api/v1/blog": {
+            "post": {
+                "description": "добавить блог в список",
+                "tags": [
+                    "blog",
+                    "add"
+                ],
+                "summary": "Добавляет блог в список",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/blog/{id}": {
+            "get": {
+                "description": "добавление нового блога",
+                "tags": [
+                    "blog",
+                    "add"
+                ],
+                "summary": "Добавление нового блога",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "обновление блога",
+                "tags": [
+                    "blog",
+                    "edit"
+                ],
+                "summary": "Обновить блог",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "удаляет блог из список",
+                "tags": [
+                    "blog",
+                    "delete"
+                ],
+                "summary": "Удаляет блог из список",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/swagger.json": {
+            "get": {
+                "tags": [
+                    "blog",
+                    "list"
+                ],
+                "summary": "Возвращает swagger.json",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
