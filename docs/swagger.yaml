@@ -1,0 +1,31 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/post/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Create and Edit post
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400": {}
+      tags:
+      - create-post
+      - edit-post
+  /docs/swagger.json:
+    get:
+      description: Returns swagger.json docs
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - system
+swagger: "2.0"
