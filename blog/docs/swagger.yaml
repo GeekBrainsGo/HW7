@@ -12,6 +12,16 @@ paths:
             type: string
       tags:
       - system
+  /api/v1/post:
+    put:
+      description: Returns one post
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+      tags:
+      - system
   /api/v1/post/{id}:
     get:
       description: Returns one post

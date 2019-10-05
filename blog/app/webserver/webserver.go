@@ -4,6 +4,7 @@ import (
 	"blog/app/models"
 	"encoding/json"
 	"html/template"
+	"io/ioutil"
 	"net/http"
 
 	"github.com/globalsign/mgo"
@@ -85,7 +86,7 @@ func (serv *WebServer) configureRouter() {
 
 		router.Get("/posts", serv.apiPostListHandle())
 		router.Get("/post/{postID}", serv.apiPostGetHandle())
-
+		router.Put("/post", serv.apiPostCreateHandle())
 	})
 
 }
@@ -253,6 +254,47 @@ func (serv *WebServer) apiPostGetHandle() http.HandlerFunc {
 		}
 
 		serv.respondJSON(w, r, http.StatusOK, post)
+	}
+}
+
+// Post create - create new post
+// @Description Returns one post
+// @Tags system
+// @Success 201 {string} string
+// @Router /api/v1/post [put]
+func (serv *WebServer) apiPostCreateHandle() http.HandlerFunc {
+
+	return func(w http.ResponseWriter, r *http.Request) {
+
+		newPost := models.Post{}
+
+		jsonData, err := ioutil.ReadAll(r.Body)
+		if err != nil {
+			serv.errorAPI(w, r, http.StatusBadRequest, err)
+			return
+		}
+
+		err = json.Unmarshal(jsonData, &newPost)
+		if err != nil {
+			serv.errorAPI(w, r, http.StatusBadRequest, err)
+			return
+		}
+
+		if newPost.ID == "" {
+			newPost.ID = uuid.NewV4().String()
+		}
+
+		conn := serv.database.DB("blog").C("posts")
+
+		err = conn.Insert(newPost)
+		if err != nil {
+			serv.errorAPI(w, r, http.StatusInternalServerError, err)
+			return
+		}
+
+		location := "/api/v1/post/" + newPost.ID
+
+		serv.respondJSON(w, r, http.StatusCreated, location)
 	}
 }
 

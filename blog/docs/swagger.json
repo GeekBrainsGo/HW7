@@ -21,6 +21,22 @@
                 }
             }
         },
+        "/api/v1/post": {
+            "put": {
+                "description": "Returns one post",
+                "tags": [
+                    "system"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
         "/api/v1/post/{id}": {
             "get": {
                 "description": "Returns one post",
