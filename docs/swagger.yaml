@@ -1,0 +1,94 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact:
+    email: vbaykin@mail.ru
+  description: Этот блог создан для учебных целей. Использует MySQL для хранения блогов.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: Мой первый простой блог
+  version: "2.0"
+paths:
+  /:
+    get:
+      description: получить список блогов
+      summary: Список блогов
+  /api/v1/blog:
+    post:
+      description: добавить блог в список
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Добавляет блог в список
+      tags:
+      - blog
+      - add
+  /api/v1/blog/{id}:
+    delete:
+      description: удаляет блог из список
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Удаляет блог из список
+      tags:
+      - blog
+      - delete
+    get:
+      description: добавление нового блога
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Добавление нового блога
+      tags:
+      - blog
+      - add
+    put:
+      description: обновление блога
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Обновить блог
+      tags:
+      - blog
+      - edit
+  /api/v1/swagger.json:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: Возвращает swagger.json
+      tags:
+      - blog
+      - list
+swagger: "2.0"
