@@ -1,0 +1,79 @@
+basePath: /api/v1
+definitions:
+  models.PostItem:
+    properties:
+      date:
+        type: string
+      description:
+        type: string
+      id:
+        type: string
+      idn:
+        type: string
+      smallDescription:
+        type: string
+      title:
+        type: string
+    type: object
+  models.ServErr:
+    properties:
+      code:
+        type: integer
+      desc:
+        type: string
+      err:
+        type: string
+      internal:
+        type: object
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server celler server.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Geekbrains HW7 Server
+  version: "1.0"
+paths:
+  /api/v1/posts/new:
+    post:
+      description: Функция, которая добавляет новый пост
+      parameters:
+      - description: New item
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/models.PostItem'
+          type: object
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/models.ServErr'
+      summary: Добавление нового поста
+      tags:
+      - post
+      - new
+  /api/v1/swagger.json:
+    get:
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: возвращает swagger.json
+swagger: "2.0"
