@@ -1,9 +1,9 @@
 package models
 
-// ServErr - Server error response
-type ServErr struct {
+// ErrorModel stands for server error.
+type ErrorModel struct {
 	Code     int         `json:"code"`
-	Err      string      `json:"err"`
+	Err      string      `json:"error"`
 	Desc     string      `json:"desc"`
 	Internal interface{} `json:"internal"`
 }

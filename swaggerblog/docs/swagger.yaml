@@ -1,0 +1,131 @@
+basePath: /
+definitions:
+  models.ErrorModel:
+    properties:
+      code:
+        type: integer
+      desc:
+        type: string
+      error:
+        type: string
+      internal:
+        type: object
+    type: object
+  models.Post:
+    properties:
+      author:
+        type: string
+      content:
+        type: string
+      hex:
+        type: string
+      title:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: progjb@gmail.com
+    name: Rishat Ishbulatov
+  description: Blog server with swagger and tests for handlers.
+  license:
+    name: MIT
+  title: Mongoblog server
+  version: "1.0"
+paths:
+  /{template}:
+    get:
+      description: return templated page if exist
+      parameters:
+      - description: in form like index.html
+        in: path
+        name: template
+        required: true
+        type: string
+      produces:
+      - text/html
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: serve templated page
+  /api/v1/docs/swagger.json:
+    get:
+      description: Returns swagger's json docs
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: returns json docs
+  /api/v1/posts:
+    post:
+      description: Create new post and return json
+      parameters:
+      - description: title, author, content
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: create new post
+  /api/v1/posts/{id}:
+    delete:
+      description: deletes a post by id
+      parameters:
+      - description: id of post
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: deletes a post by id
+    put:
+      consumes:
+      - application/json
+      description: renew post by id
+      parameters:
+      - description: id of post
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: title, author, content
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/models.Post'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      summary: renew post by id
+swagger: "2.0"
