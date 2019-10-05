@@ -1,0 +1,66 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {},
+        "license": {}
+    },
+    "paths": {
+        "/api/v1/docs/swagger.json": {
+            "get": {
+                "description": "Returns swagger.json docs",
+                "tags": [
+                    "system"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/post/{id}": {
+            "get": {
+                "description": "Returns one post",
+                "tags": [
+                    "system"
+                ],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Example: 1054497f-7c0b-4579-b4f2-524f58c712f7",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts": {
+            "get": {
+                "description": "Returns all posts",
+                "tags": [
+                    "system"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
