@@ -1,0 +1,51 @@
+info:
+  contact: {}
+  license: {}
+paths:
+  /api/v1/docs/swagger.json:
+    get:
+      description: Returns swagger.json docs
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - system
+  /api/v1/post:
+    put:
+      description: Returns one post
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+      tags:
+      - system
+  /api/v1/post/{id}:
+    get:
+      description: Returns one post
+      parameters:
+      - description: 'Example: 1054497f-7c0b-4579-b4f2-524f58c712f7'
+        in: path
+        name: id
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - system
+  /api/v1/posts:
+    get:
+      description: Returns all posts
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - system
+swagger: "2.0"

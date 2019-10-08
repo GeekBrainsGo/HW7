@@ -1,0 +1,7 @@
+shema = "http"
+hostname = "localhost"
+bind_addr = ":8888"
+log_level = "debug"
+dsn_url = "mongodb://root:123qweqwe@127.0.0.1:27017"
+docs_url = "/api/v1/docs/swagger.json"
+docs_source = "docs/swagger.json"
