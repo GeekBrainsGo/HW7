@@ -1,5 +1,11 @@
 package main
 
+// @title HW7
+// @version 0.1
+// @description This is a HW blog
+
+// @contact.name Dmitrii Fadeev
+
 import (
 	"context"
 	"flag"
@@ -13,8 +19,8 @@ import (
 const staticDir = "www/static"
 
 func main() {
-	flagServAddr := flag.String("addr", "localhost:8080", "server address")
-	flagConnDb := flag.String("conndb", "mongodb://192.168.99.100:27017", "db conn string")
+	flagServAddr := flag.String("addr", ":8080", "server address")
+	flagConnDb := flag.String("conndb", "mongodb://localhost:27017", "db conn string")
 
 	lg := NewLogger()
 	ctx := context.Background()

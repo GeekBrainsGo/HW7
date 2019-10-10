@@ -20,13 +20,13 @@
                 <div class="uk-align-center uk-flex uk-flex-between">
                     <div class="uk-flex-left">
                         <h3>
-                            <a class="uk-link-heading" href="/post/{{.ID}}">{{.Title}}</a>
+                            <a class="uk-link-heading" href="/post/{{.ID.Hex}}">{{.Title}}</a>
                         </h3>
                         {{.Contents}}
                     </div>
                 </div>
                 <div>
-                    <a href="/edit/{{.ID}}"><button class=" uk-button uk-button-default ">Edit</button></a>
+                    <a href="/edit/{{.ID.Hex}}"><button class=" uk-button uk-button-default ">Edit</button></a>
                 </div>
 {{ end }}
 

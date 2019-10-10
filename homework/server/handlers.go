@@ -57,7 +57,15 @@ func (serv *Server) handleGetEditPost(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func (serv *Server) handlePostEditPost(w http.ResponseWriter, r *http.Request) {
+// handlePostEditPost - function to save edited post to DB
+// @Summary saves the edited post to DB
+// @Description function to update edited post in the DB
+// @Accept json
+// @Produce json
+// @Param website body models.Blog true "Blog json struct"
+// @Success 200 {object} models.Blog
+// @Router /api/v1/edit/{id} [post]
+func (serv *Server) HandlePostEditPost(w http.ResponseWriter, r *http.Request) {
 	var post models.Blog
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	decoder := json.NewDecoder(r.Body)
@@ -76,7 +84,15 @@ func (serv *Server) handlePostEditPost(w http.ResponseWriter, r *http.Request) {
 
 }
 
-func (serv *Server) handlePostCreatePost(w http.ResponseWriter, r *http.Request) {
+// HandlePostCreatePost - function to create new post
+// @Summary creates a new post
+// @Description function to create a new post in the DB
+// @Accept json
+// @Produce json
+// @Param website body models.Blog true "Blog json struct"
+// @Success 200 {object} models.Blog
+// @Router /api/v1/create [post]
+func (serv *Server) HandlePostCreatePost(w http.ResponseWriter, r *http.Request) {
 	var post models.Blog
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	decoder := json.NewDecoder(r.Body)
@@ -94,7 +110,15 @@ func (serv *Server) handlePostCreatePost(w http.ResponseWriter, r *http.Request)
 	}
 }
 
-func (serv *Server) handlePostDeletePost(w http.ResponseWriter, r *http.Request) {
+// HandlePostDeletePost - function to delete a post by id
+// @Summary deletes a post
+// @Description function to delete a post from DB
+// @Accept json
+// @Produce json
+// @Param website body models.Blog true "Blog json struct"
+// @Success 200 {object} models.Blog
+// @Router /api/v1/delete [post]
+func (serv *Server) HandlePostDeletePost(w http.ResponseWriter, r *http.Request) {
 	var post models.Blog
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	decoder := json.NewDecoder(r.Body)
@@ -110,5 +134,8 @@ func (serv *Server) handlePostDeletePost(w http.ResponseWriter, r *http.Request)
 			w.Write(resp)
 		}
 	}
+}
 
+func (serv *Server) handleSwaggerJSON(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "./docs/swagger.json")
 }
