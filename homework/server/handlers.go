@@ -64,7 +64,7 @@ func (serv *Server) handleGetEditPost(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param website body models.Blog true "Blog json struct"
 // @Success 200 {object} models.Blog
-// @Router /api/v1/edit/{id} [post]
+// @Router /api/v1/posts/{id} [put]
 func (serv *Server) HandlePostEditPost(w http.ResponseWriter, r *http.Request) {
 	var post models.Blog
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -91,7 +91,7 @@ func (serv *Server) HandlePostEditPost(w http.ResponseWriter, r *http.Request) {
 // @Produce json
 // @Param website body models.Blog true "Blog json struct"
 // @Success 200 {object} models.Blog
-// @Router /api/v1/create [post]
+// @Router /api/v1/posts/ [post]
 func (serv *Server) HandlePostCreatePost(w http.ResponseWriter, r *http.Request) {
 	var post models.Blog
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
@@ -117,12 +117,13 @@ func (serv *Server) HandlePostCreatePost(w http.ResponseWriter, r *http.Request)
 // @Produce json
 // @Param website body models.Blog true "Blog json struct"
 // @Success 200 {object} models.Blog
-// @Router /api/v1/delete [post]
+// @Router /api/v1/posts/{id} [delete]
 func (serv *Server) HandlePostDeletePost(w http.ResponseWriter, r *http.Request) {
 	var post models.Blog
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&post)
+	postNumber := chi.URLParam(r, "id")
+	searchedPost, err := models.FindBlog(nil, serv.db, postNumber)
+	searchedPost.Delete(nil, serv.db)
 	if err != nil {
 		w.Write([]byte(err.Error()))
 	} else {

@@ -16,7 +16,7 @@ info:
   title: HW7
   version: "0.1"
 paths:
-  /api/v1/create:
+  /api/v1/posts/:
     post:
       consumes:
       - application/json
@@ -37,8 +37,8 @@ paths:
           schema:
             $ref: '#/definitions/models.Blog'
       summary: creates a new post
-  /api/v1/delete:
-    post:
+  /api/v1/posts/{id}:
+    delete:
       consumes:
       - application/json
       description: function to delete a post from DB
@@ -58,8 +58,7 @@ paths:
           schema:
             $ref: '#/definitions/models.Blog'
       summary: deletes a post
-  /api/v1/edit/{id}:
-    post:
+    put:
       consumes:
       - application/json
       description: function to update edited post in the DB

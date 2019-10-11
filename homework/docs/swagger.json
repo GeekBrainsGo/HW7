@@ -10,7 +10,7 @@
         "version": "0.1"
     },
     "paths": {
-        "/api/v1/create": {
+        "/api/v1/posts/": {
             "post": {
                 "description": "function to create a new post in the DB",
                 "consumes": [
@@ -42,16 +42,16 @@
                 }
             }
         },
-        "/api/v1/delete": {
-            "post": {
-                "description": "function to delete a post from DB",
+        "/api/v1/posts/{id}": {
+            "put": {
+                "description": "function to update edited post in the DB",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "deletes a post",
+                "summary": "saves the edited post to DB",
                 "parameters": [
                     {
                         "description": "Blog json struct",
@@ -72,18 +72,16 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/v1/edit/{id}": {
-            "post": {
-                "description": "function to update edited post in the DB",
+            },
+            "delete": {
+                "description": "function to delete a post from DB",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
                     "application/json"
                 ],
-                "summary": "saves the edited post to DB",
+                "summary": "deletes a post",
                 "parameters": [
                     {
                         "description": "Blog json struct",

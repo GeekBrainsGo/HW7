@@ -18,28 +18,48 @@
 {{ define "BlogItem" }}
 <div class="uk-card uk-card-body uk-align-center">
       <div class="uk-card uk-card-default uk-card-body">
-      <div>
-        <form>
-          <fieldset class="uk-fieldset">
+      <div task-id="{{.ID.Hex}}">
+          <fieldset enctype='application/json' class="uk-fieldset">
             <legend class="uk-legend">Editing post</legend>
             <div class="uk-margin uk-width-1-1">
-              <textarea class="uk-textarea" rows="1">{{.Title}}</textarea>
+              <textarea name='title' class="uk-textarea" rows="1">{{.Title}}</textarea>
             </div>
             <div class="uk-margin">
-              <textarea class="uk-textarea" rows="10">{{.Contents}}</textarea>
+              <textarea name='contents' class="uk-textarea" rows="10">{{.Contents}}</textarea>
             </div>
           </fieldset>
           <div class="uk-flex uk-flex-column uk-flex-middle">
           <div class="uk-margin">
-            <button class="uk-button uk-button-default">Save</button>
+            <button class="uk-button uk-button-default" onclick="saveTask('{{.ID.Hex}}')">Save</button>
           </div>
           </div>
-        </form>
       </div>
       
       </div>
       
 </div>
+
+<script>
+    function saveTask(id) {
+        let postID = document.querySelector(`div[task-id="${id}"]`)
+        let title = postID.querySelector('textarea[name="title"]').value
+        let contents = postID.querySelector('textarea[name="contents"]').value
+        fetch(`/api/v1/posts/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            title,
+            id,
+            contents,
+        })            
+    }).then(resp => {
+          resp.json().then(data => {
+            console.log(data)
+            //location.reload()
+          })
+    })
+    }
+</script>
+
 {{ end }}
 
 {{define "Resources"}}

@@ -32,11 +32,23 @@
                 </div>
                 <div>
                     <a href="/edit/{{.ID.Hex}}"><button class=" uk-button uk-button-default ">Edit</button></a>
+                    <button class=" uk-button uk-button-default" onclick="deleteTask('{{.ID.Hex}}')">Delete</button>
                 </div>
         </li>
         {{end}}
     </ul>
     </div>
+
+    <script>
+        function deleteTask(id) {
+            fetch(`/api/v1/posts/${id}`, {method: 'DELETE'})
+                .then(resp => {
+                    resp.json().then(data => console.log(data))
+                    location.reload()
+            })
+        }
+    </script>
+
     {{ end }} {{define "Resources"}}
     <link rel="stylesheet " href="/static/css/uikit.min.css " />
     <script src="/static/js/uikit.js "></script>
