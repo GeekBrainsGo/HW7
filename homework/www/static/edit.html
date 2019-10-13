@@ -1,0 +1,69 @@
+{{define "index"}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>{{.Title}}</title>
+    {{template "Resources"}}
+  </head>
+  <body>
+    <div class="uk-card uk-card-default uk-card-body uk-width-1-2 uk-align-center">
+      <h3 class="uk-align-center"><a class="uk-align-center uk-link-heading" href="/">"Gopher's Blog"</a></h3>
+      {{template "BlogItem" .}}
+    </div>
+  </body>
+</html>
+{{ end }}
+
+{{ define "BlogItem" }}
+<div class="uk-card uk-card-body uk-align-center">
+      <div class="uk-card uk-card-default uk-card-body">
+      <div task-id="{{.ID.Hex}}">
+          <fieldset enctype='application/json' class="uk-fieldset">
+            <legend class="uk-legend">Editing post</legend>
+            <div class="uk-margin uk-width-1-1">
+              <textarea name='title' class="uk-textarea" rows="1">{{.Title}}</textarea>
+            </div>
+            <div class="uk-margin">
+              <textarea name='contents' class="uk-textarea" rows="10">{{.Contents}}</textarea>
+            </div>
+          </fieldset>
+          <div class="uk-flex uk-flex-column uk-flex-middle">
+          <div class="uk-margin">
+            <button class="uk-button uk-button-default" onclick="saveTask('{{.ID.Hex}}')">Save</button>
+          </div>
+          </div>
+      </div>
+      
+      </div>
+      
+</div>
+
+<script>
+    function saveTask(id) {
+        let postID = document.querySelector(`div[task-id="${id}"]`)
+        let title = postID.querySelector('textarea[name="title"]').value
+        let contents = postID.querySelector('textarea[name="contents"]').value
+        fetch(`/api/v1/posts/`, {
+        method: 'PUT',
+        body: JSON.stringify({
+            title,
+            id,
+            contents,
+        })            
+    }).then(resp => {
+          resp.json().then(data => {
+            console.log(data)
+            //location.reload()
+          })
+    })
+    }
+</script>
+
+{{ end }}
+
+{{define "Resources"}}
+<link rel="stylesheet" href="/static/css/uikit.min.css" />
+<script src="/static/js/uikit.js"></script>
+<script src="/static/js/uikit-icons.js"></script>
+{{ end }}

@@ -1,0 +1,124 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is a HW blog",
+        "title": "HW7",
+        "contact": {
+            "name": "Dmitrii Fadeev"
+        },
+        "license": {},
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/v1/posts/": {
+            "post": {
+                "description": "function to create a new post in the DB",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "creates a new post",
+                "parameters": [
+                    {
+                        "description": "Blog json struct",
+                        "name": "website",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.Blog"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Blog"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/posts/{id}": {
+            "put": {
+                "description": "function to update edited post in the DB",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "saves the edited post to DB",
+                "parameters": [
+                    {
+                        "description": "Blog json struct",
+                        "name": "website",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.Blog"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Blog"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "function to delete a post from DB",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "deletes a post",
+                "parameters": [
+                    {
+                        "description": "Blog json struct",
+                        "name": "website",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/models.Blog"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Blog"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "models.Blog": {
+            "type": "object",
+            "properties": {
+                "contents": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

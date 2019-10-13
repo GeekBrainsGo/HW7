@@ -1,0 +1,81 @@
+definitions:
+  models.Blog:
+    properties:
+      contents:
+        type: string
+      id:
+        type: string
+      title:
+        type: string
+    type: object
+info:
+  contact:
+    name: Dmitrii Fadeev
+  description: This is a HW blog
+  license: {}
+  title: HW7
+  version: "0.1"
+paths:
+  /api/v1/posts/:
+    post:
+      consumes:
+      - application/json
+      description: function to create a new post in the DB
+      parameters:
+      - description: Blog json struct
+        in: body
+        name: website
+        required: true
+        schema:
+          $ref: '#/definitions/models.Blog'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Blog'
+      summary: creates a new post
+  /api/v1/posts/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: function to delete a post from DB
+      parameters:
+      - description: Blog json struct
+        in: body
+        name: website
+        required: true
+        schema:
+          $ref: '#/definitions/models.Blog'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Blog'
+      summary: deletes a post
+    put:
+      consumes:
+      - application/json
+      description: function to update edited post in the DB
+      parameters:
+      - description: Blog json struct
+        in: body
+        name: website
+        required: true
+        schema:
+          $ref: '#/definitions/models.Blog'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Blog'
+      summary: saves the edited post to DB
+swagger: "2.0"
