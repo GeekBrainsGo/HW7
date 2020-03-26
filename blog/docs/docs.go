@@ -123,7 +123,7 @@ var SwaggerInfo = swaggerInfo{
 
 type s struct{}
 
-func (s *s) ReadDoc() string {
+func (s *s) ReadDoc() string { // 3
 	sInfo := SwaggerInfo
 	sInfo.Description = strings.Replace(sInfo.Description, "\n", "\\n", -1)
 

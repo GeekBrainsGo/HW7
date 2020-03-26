@@ -23,7 +23,7 @@ type WebServer struct {
 	config   *Config
 }
 
-func newServer(db *mgo.Session, config *Config) *WebServer {
+func newServer(db *mgo.Session, config *Config) *WebServer { // 1
 	serv := &WebServer{
 		router:   chi.NewRouter(),
 		logger:   logrus.New(),
@@ -40,7 +40,7 @@ func newServer(db *mgo.Session, config *Config) *WebServer {
 }
 
 // Start ...
-func Start(config *Config) error {
+func Start(config *Config) error { // 2
 	db, err := newSession(config.DatabaseConnectionString)
 	if err != nil {
 		return err
@@ -51,7 +51,7 @@ func Start(config *Config) error {
 	return http.ListenAndServe(config.BindAddr, serv)
 }
 
-func newSession(dsnURL string) (*mgo.Session, error) {
+func newSession(dsnURL string) (*mgo.Session, error) { // 2
 
 	session, err := mgo.Dial(dsnURL)
 	if err != nil {
@@ -61,11 +61,11 @@ func newSession(dsnURL string) (*mgo.Session, error) {
 	return session, nil
 }
 
-func (serv *WebServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (serv *WebServer) ServeHTTP(w http.ResponseWriter, r *http.Request) { // 1
 	serv.router.ServeHTTP(w, r)
 }
 
-func (serv *WebServer) configureRouter() {
+func (serv *WebServer) configureRouter() { // 1
 	//routes
 	serv.router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("welcome"))
@@ -91,14 +91,14 @@ func (serv *WebServer) configureRouter() {
 
 }
 
-func (serv *WebServer) postListHandle() http.HandlerFunc {
+func (serv *WebServer) postListHandle() http.HandlerFunc { // 1
 
 	type PageModel struct {
 		Title string
 		Data  interface{}
 	}
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) { // 3
 
 		conn := serv.database.DB("blog").C("posts")
 
@@ -125,14 +125,14 @@ func (serv *WebServer) postListHandle() http.HandlerFunc {
 	}
 }
 
-func (serv *WebServer) postViewHandle() http.HandlerFunc {
+func (serv *WebServer) postViewHandle() http.HandlerFunc { // 1
 
 	type PageModel struct {
 		Title string
 		Data  interface{}
 	}
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) { // 3
 
 		postID := chi.URLParam(r, "postID")
 
@@ -161,9 +161,9 @@ func (serv *WebServer) postViewHandle() http.HandlerFunc {
 	}
 }
 
-func (serv *WebServer) postDeleteHandle() http.HandlerFunc {
+func (serv *WebServer) postDeleteHandle() http.HandlerFunc { // 1
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) { // 2
 
 		postID := chi.URLParam(r, "postID")
 
@@ -182,9 +182,9 @@ func (serv *WebServer) postDeleteHandle() http.HandlerFunc {
 	}
 }
 
-func (serv *WebServer) postCreateHandle() http.HandlerFunc {
+func (serv *WebServer) postCreateHandle() http.HandlerFunc { // 1
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) { // 2
 
 		var newPost models.Post
 
@@ -213,9 +213,9 @@ func (serv *WebServer) postCreateHandle() http.HandlerFunc {
 // @Tags system
 // @Success 200 {string} string
 // @Router /api/v1/posts [get]
-func (serv *WebServer) apiPostListHandle() http.HandlerFunc {
+func (serv *WebServer) apiPostListHandle() http.HandlerFunc { // 1
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) { // 2
 
 		conn := serv.database.DB("blog").C("posts")
 
@@ -262,9 +262,9 @@ func (serv *WebServer) apiPostGetHandle() http.HandlerFunc {
 // @Tags system
 // @Success 201 {string} string
 // @Router /api/v1/post [put]
-func (serv *WebServer) apiPostCreateHandle() http.HandlerFunc {
+func (serv *WebServer) apiPostCreateHandle() http.HandlerFunc { // 1
 
-	return func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) { // 5
 
 		newPost := models.Post{}
 
@@ -303,17 +303,17 @@ func (serv *WebServer) apiPostCreateHandle() http.HandlerFunc {
 // @Tags system
 // @Success 200 {string} string
 // @Router /api/v1/docs/swagger.json [get]
-func (serv *WebServer) HandleSwagger() http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
+func (serv *WebServer) HandleSwagger() http.HandlerFunc { // 1
+	return func(w http.ResponseWriter, r *http.Request) { // 1
 		http.ServeFile(w, r, serv.config.SwaggerFile)
 	}
 }
 
-func (serv *WebServer) errorAPI(w http.ResponseWriter, r *http.Request, code int, err error) {
+func (serv *WebServer) errorAPI(w http.ResponseWriter, r *http.Request, code int, err error) { // 1
 	serv.respondJSON(w, r, code, map[string]string{"error": err.Error()})
 }
 
-func (serv *WebServer) respondJSON(w http.ResponseWriter, r *http.Request, code int, data interface{}) {
+func (serv *WebServer) respondJSON(w http.ResponseWriter, r *http.Request, code int, data interface{}) { // 2
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(code)
 	if data != nil {
@@ -321,7 +321,7 @@ func (serv *WebServer) respondJSON(w http.ResponseWriter, r *http.Request, code 
 	}
 }
 
-func (serv *WebServer) respondWhithTemplate(w http.ResponseWriter, r *http.Request, code int, data interface{}) {
+func (serv *WebServer) respondWhithTemplate(w http.ResponseWriter, r *http.Request, code int, data interface{}) { // 2
 	w.WriteHeader(code)
 	if data != nil {
 		json.NewEncoder(w).Encode(data)

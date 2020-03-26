@@ -14,11 +14,11 @@ var (
 	configPath string
 )
 
-func init() {
+func init() { // 1
 	flag.StringVar(&configPath, "config-path", "configs/blog.toml", "path to config file")
 }
 
-func main() {
+func main() { // 3
 	flag.Parse()
 
 	config := webserver.NewConfig()

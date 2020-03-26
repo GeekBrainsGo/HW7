@@ -9,7 +9,7 @@ import (
 
 const POSTID = "testPostID"
 
-func TestPost_Create(t *testing.T) {
+func TestPost_Create(t *testing.T) { // 3
 
 	var newPost Post
 
@@ -50,7 +50,7 @@ func TestPost_Find(t *testing.T) {
 
 }
 
-func TestPost_Delete(t *testing.T) {
+func TestPost_Delete(t *testing.T) { // 3
 
 	session, err := mgo.Dial("mongodb://root:123qweqwe@127.0.0.1:27017")
 	if err != nil {

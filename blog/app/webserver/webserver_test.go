@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestApiPost_Create(t *testing.T) {
+func TestApiPost_Create(t *testing.T) { // 4
 
 	config := NewConfig()
 	_, err := toml.DecodeFile("../../configs/blog.toml", config)
